@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-namespace CraftingLegends.Famework {
+namespace CraftingLegends.Framework {
 
 	public class HUDFPS : MonoBehaviour
 	{

@@ -1,62 +1,54 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using CraftingLegends.Framework;
 
-public class InputController : MonoBehaviour {
+public class PlayerDisplay : MonoBehaviour {
 
-	private PlayerCharacter _current = null;
+	public Text nameDisplay;
+	public Image healthImage;
+
+	private Actor _actor;
 
 	// ================================================================================
 	//  unity methods
 	// --------------------------------------------------------------------------------
 
-    void Update()
+	void Update()
 	{
-		if (_current != null)
+		if (_actor != null)
 		{
-			HandleDirectMovement();
+			UpdateHealth();
 		}
-
-		CheckSpecialKeys();
-    }
+	}
 
 	// ================================================================================
 	//  public methods
 	// --------------------------------------------------------------------------------
 
-	public void SetInput(PlayerCharacter character)
+	public void AttachToPlayer(PlayerCharacter character)
 	{
-		_current = character;
+		nameDisplay.text = character.characterName;
+		_actor = character.GetComponent<Actor>();
 
+		gameObject.SetActive(true);
 	}
 
-	public void DisableInput()
+	public void DetachFromPlayer()
 	{
-		_current = null;
+		_actor = null;
+
+		gameObject.SetActive(false);
 	}
 
 	// ================================================================================
 	//  private methods
 	// --------------------------------------------------------------------------------
 
-	private void CheckSpecialKeys()
+	private void UpdateHealth()
 	{
-		if (Application.isEditor)
-		{
-			if (Input.GetKeyDown(KeyCode.R))
-			{
-				Game.Instance.arena.Reset();
-			}
-		}
-	}
-
-	private void HandleDirectMovement()
-	{
-		float h = Input.GetAxis("Horizontal");
-		float v = Input.GetAxis("Vertical");
-
-		Actor actor = _current.GetComponent<Actor>();
-		actor.SetMovement(new Vector2(h, v));
+		float remaining = _actor.health / _actor.maxHealth;
+		healthImage.fillAmount = remaining;
 	}
 }

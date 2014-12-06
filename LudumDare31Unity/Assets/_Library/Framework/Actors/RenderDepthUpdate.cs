@@ -12,6 +12,8 @@ namespace CraftingLegends.Framework
 
 		public bool toBackgroundWhenDead = true;
 
+		public float offset = 0f;
+
 		// ================================================================================
 		//  private
 		// --------------------------------------------------------------------------------
@@ -38,7 +40,7 @@ namespace CraftingLegends.Framework
 		void Update()
 		{
 			if (_isActive)
-				_transform.position = new Vector3(_transform.position.x, _transform.position.y, _transform.position.y);
+				_transform.position = new Vector3(_transform.position.x, _transform.position.y, _transform.position.y + offset);
 		}
 
 		// ================================================================================
@@ -50,7 +52,7 @@ namespace CraftingLegends.Framework
 			if (state == ActorState.Dead && toBackgroundWhenDead == true)
 			{
 				// set a bit further towards background
-				_transform.position = new Vector3(_transform.position.x, _transform.position.y, _transform.position.y + 1.0f);
+				_transform.position = new Vector3(_transform.position.x, _transform.position.y, _transform.position.y + 1.0f + offset);
 
 				_isActive = false;
 			}

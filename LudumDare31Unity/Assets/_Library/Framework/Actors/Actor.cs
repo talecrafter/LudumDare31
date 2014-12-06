@@ -278,6 +278,11 @@ namespace CraftingLegends.Framework
 				Destroy(gameObject);
 		}
 
+		public void Kill()
+		{
+			ApplyDamage(health);
+		}
+
 		public void SetToDead()
 		{
 			health = 0;

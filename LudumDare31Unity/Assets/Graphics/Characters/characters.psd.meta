@@ -4,6 +4,12 @@ TextureImporter:
   fileIDToRecycleName:
     21300000: soldier_black
     21300002: alien_orange
+    21300004: head_man0
+    21300006: torso_man0
+    21300008: legbehind_man0
+    21300010: legfront_man0
+    21300012: rifle_laser
+    21300014: Shadow
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -58,12 +64,72 @@ TextureImporter:
     - name: alien_orange
       rect:
         serializedVersion: 2
-        x: 162
+        x: 154
         y: 1874
-        width: 155
+        width: 135
         height: 169
       alignment: 9
-      pivot: {x: .5, y: .224513307}
+      pivot: {x: .599876344, y: .246675208}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: head_man0
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 1973
+        width: 45
+        height: 63
+      alignment: 9
+      pivot: {x: .68310684, y: .214640304}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: torso_man0
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 1907
+        width: 71
+        height: 58
+      alignment: 9
+      pivot: {x: .647704244, y: .246077195}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: legbehind_man0
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 1855
+        width: 22
+        height: 34
+      alignment: 9
+      pivot: {x: .642647505, y: .823048294}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: legfront_man0
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 1849
+        width: 22
+        height: 46
+      alignment: 9
+      pivot: {x: .438867748, y: .831359863}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rifle_laser
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 1671
+        width: 99
+        height: 52
+      alignment: 9
+      pivot: {x: .694258511, y: .650674701}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Shadow
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 1740
+        width: 116
+        height: 109
+      alignment: 9
+      pivot: {x: .438596189, y: .428118497}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

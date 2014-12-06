@@ -5,7 +5,10 @@ using CraftingLegends.Framework;
 
 public class Room : MonoBehaviour {
 
-	private bool _isSpawned = false;
+	public bool isActive { get { return _isActive; }}
+	private bool _isActive = false;
+
+	public List<Room> neighbours = new List<Room>();
 
 	private Collider2D _collider2D;
 	private Bounds _bounds;
@@ -28,6 +31,18 @@ public class Room : MonoBehaviour {
 		_image.enabled = false;
 	}
 
+	public void OnDrawGizmos()
+	{
+		RenderDepthUpdate updateScript = GetComponent<RenderDepthUpdate>();
+		transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y + updateScript.offset);
+
+		// draw all connections
+		foreach (var item in neighbours)
+		{
+			Gizmos.DrawLine(transform.position, item.transform.position);
+		}
+	}
+
 	// ================================================================================
 	//  public methods
 	// --------------------------------------------------------------------------------
@@ -39,7 +54,7 @@ public class Room : MonoBehaviour {
 
 		_image.enabled = true;
 		if (_animator != null)
-			_animator.SetBool("spawned", true);
+			_animator.SetBool("active", true);
 	}
 
 	public void Hide()
@@ -48,7 +63,32 @@ public class Room : MonoBehaviour {
 		BaseGameController.Instance.levelGrid.UpdateField(_bounds);
 
 		if (_animator != null)
-			_animator.SetBool("spawned", false);
+			_animator.SetBool("active", false);
+	}
+
+	public void FindNeighbourRooms()
+	{
+		neighbours.Clear();
+
+		Collider2D coll = GetComponent<Collider2D>();
+
+		float rangeX = 1.7f;
+		float rangeY = 0.8f;
+		Vector2 fromPos = new Vector2(transform.position.x - rangeX, transform.position.y - rangeY);
+		Vector2 toPos = new Vector2(transform.position.x + rangeX, transform.position.y + rangeY);
+		var hits = Physics2D.OverlapAreaAll(fromPos, toPos);
+
+		//var hits = Physics2D.OverlapCircleAll(transform.position, 1.7f);
+
+		foreach (var item in hits)
+		{
+			Room otherRoom = item.GetComponent<Room>();
+			if (otherRoom != null && otherRoom != this)
+			{
+				neighbours.Add(otherRoom);
+				Debug.Log(otherRoom);
+			}
+		}
 	}
 
 }

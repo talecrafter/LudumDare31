@@ -14,6 +14,31 @@ TextureImporter:
     21300018: torso_man1
     21300020: legbehind_man1
     21300022: legfront_man1
+    21300024: energy_ball
+    21300026: bullet_miss
+    21300028: bullet_hit
+    21300030: shotgun_laser
+    21300032: switch_weapon_help
+    21300034: rifle_laser_inventory
+    21300036: shotgun_laser_inventory
+    21300038: sniper
+    21300040: sniper_inventory
+    21300042: buller_sniper
+    21300044: sniper_miss
+    21300046: sniper_hit
+    21300048: shotgun_bullet
+    21300050: shotgun_miss
+    21300052: shotgun_hit
+    21300054: head2
+    21300056: head3
+    21300058: torso1
+    21300060: torso2
+    21300062: monster_head
+    21300064: monster_arm
+    21300066: monster_torso
+    21300068: monster_leg_front
+    21300070: monster_leg_back
+    21300072: Narrator
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -78,12 +103,12 @@ TextureImporter:
     - name: head_man0
       rect:
         serializedVersion: 2
-        x: 309
-        y: 1973
-        width: 45
-        height: 63
+        x: 311
+        y: 1974
+        width: 57
+        height: 70
       alignment: 9
-      pivot: {x: .68310684, y: .214640304}
+      pivot: {x: .610497713, y: .190004185}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: torso_man0
       rect:
@@ -174,6 +199,256 @@ TextureImporter:
         height: 46
       alignment: 9
       pivot: {x: .445186257, y: .82507056}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: energy_ball
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 1623
+        width: 39
+        height: 38
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: bullet_miss
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 1609
+        width: 62
+        height: 65
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: bullet_hit
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 1613
+        width: 57
+        height: 58
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: shotgun_laser
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 1678
+        width: 99
+        height: 51
+      alignment: 9
+      pivot: {x: .630645931, y: .580693245}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: switch_weapon_help
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 1337
+        width: 305
+        height: 66
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: rifle_laser_inventory
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 1524
+        width: 119
+        height: 59
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: shotgun_laser_inventory
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 1526
+        width: 113
+        height: 66
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sniper
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 1677
+        width: 120
+        height: 46
+      alignment: 9
+      pivot: {x: .698238373, y: .620666504}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sniper_inventory
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1535
+        width: 121
+        height: 49
+      alignment: 9
+      pivot: {x: .591746688, y: .548546612}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: buller_sniper
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 1623
+        width: 39
+        height: 38
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sniper_miss
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 1618
+        width: 52
+        height: 47
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sniper_hit
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 1610
+        width: 63
+        height: 63
+      alignment: 9
+      pivot: {x: .393089652, y: .402808785}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: shotgun_bullet
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 1623
+        width: 39
+        height: 38
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: shotgun_miss
+      rect:
+        serializedVersion: 2
+        x: 548
+        y: 1618
+        width: 46
+        height: 47
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: shotgun_hit
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 1616
+        width: 53
+        height: 55
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: head2
+      rect:
+        serializedVersion: 2
+        x: 548
+        y: 1979
+        width: 58
+        height: 63
+      alignment: 9
+      pivot: {x: .637868941, y: .245376825}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: head3
+      rect:
+        serializedVersion: 2
+        x: 654
+        y: 1968
+        width: 54
+        height: 76
+      alignment: 9
+      pivot: {x: .686065674, y: .419377387}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: torso1
+      rect:
+        serializedVersion: 2
+        x: 562
+        y: 1907
+        width: 79
+        height: 61
+      alignment: 9
+      pivot: {x: .61291039, y: .218792021}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: torso2
+      rect:
+        serializedVersion: 2
+        x: 663
+        y: 1907
+        width: 69
+        height: 58
+      alignment: 9
+      pivot: {x: .678994894, y: .252535462}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monster_head
+      rect:
+        serializedVersion: 2
+        x: 815
+        y: 1992
+        width: 43
+        height: 50
+      alignment: 9
+      pivot: {x: .512896895, y: .311442882}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monster_arm
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 1947
+        width: 35
+        height: 54
+      alignment: 9
+      pivot: {x: .737676144, y: .767017484}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monster_torso
+      rect:
+        serializedVersion: 2
+        x: 827
+        y: 1929
+        width: 33
+        height: 49
+      alignment: 9
+      pivot: {x: .516804993, y: .205733314}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monster_leg_front
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 1887
+        width: 22
+        height: 39
+      alignment: 9
+      pivot: {x: .401092529, y: .811316848}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monster_leg_back
+      rect:
+        serializedVersion: 2
+        x: 824
+        y: 1890
+        width: 15
+        height: 29
+      alignment: 9
+      pivot: {x: .603625476, y: .778707564}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Narrator
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 1721
+        width: 107
+        height: 152
+      alignment: 0
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

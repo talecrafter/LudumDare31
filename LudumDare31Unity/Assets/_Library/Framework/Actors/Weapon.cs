@@ -11,31 +11,32 @@ namespace CraftingLegends.Framework
 		{
 			Melee,
 			Artillery,
+			Bullet,
 			Healing
 		}
 
-		[SerializeField]
+		public string name;
+		public Sprite image;
+		public Sprite inventoryImage;
+
 		public AudioClip attackSound;
 
 		[SerializeField]
 		public WeaponType type = WeaponType.Melee;
 
-		[SerializeField]
 		public float amount;
 
-		[SerializeField]
 		public float attackDuration;
 
-		[SerializeField]
 		public float range;
 
-		[SerializeField]
 		public float precision = 1.0f;
 
-		[SerializeField]
+		public float scatter = 0.1f;
+
 		public float rangeDelay;
 
-		[SerializeField]
+		public int bulletCount = 1;
 		public GameObject shellPrefab;
 	}
 }

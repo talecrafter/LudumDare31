@@ -35,7 +35,7 @@ public class CrossHair : MonoBehaviour
 	{
 		get
 		{
-			return Camera.main.ScreenToWorldPoint(Utilities.MouseToScreenCoords());
+			return Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
 		}
 	}
 

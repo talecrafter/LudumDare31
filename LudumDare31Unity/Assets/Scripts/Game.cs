@@ -8,7 +8,10 @@ public class Game : BaseGameController {
 	public static new Game Instance;
 
 	public Arena arena;
+	public PlayerInventory inventory;
 	public InputController inputController;
+
+	public PrefabPool prefabPool = new PrefabPool();
 
 	// ================================================================================
 	//  unity methods
@@ -20,6 +23,8 @@ public class Game : BaseGameController {
 		BaseGameController.Instance = this;
 		levelGrid = FindObjectOfType<LevelGrid>();
 		inputController = GetComponent<InputController>();
+		inventory = GetComponent<PlayerInventory>();
+		audioManager = GetComponent<BaseAudioManager>();
 	}
 
 	protected override void Start()

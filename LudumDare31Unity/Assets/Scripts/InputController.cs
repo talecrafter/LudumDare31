@@ -8,6 +8,7 @@ public class InputController : MonoBehaviour {
 
 	private PlayerCharacter _current = null;
 	private Actor _currentActor = null;
+	private WeaponHand _weaponHand = null;
 
 	private CrossHair _crossHair;
 
@@ -25,6 +26,7 @@ public class InputController : MonoBehaviour {
 		if (_current != null && _currentActor != null && _currentActor.isAlive)
 		{
 			HandleDirectMovement();
+			HandleShooting();
 		}
 
 		CheckSpecialKeys();
@@ -38,6 +40,7 @@ public class InputController : MonoBehaviour {
 	{
 		_current = character;
 		_currentActor = character.GetComponent<Actor>();
+		_weaponHand = _currentActor.GetComponentInChildren<WeaponHand>();
 		_crossHair.Show();
 	}
 
@@ -62,6 +65,19 @@ public class InputController : MonoBehaviour {
 		}
 	}
 
+	private void HandleShooting()
+	{
+		if (Input.GetMouseButtonDown(0))
+			Game.Instance.inventory.Trigger(_crossHair);
+		else if (Input.GetMouseButton(0))
+			Game.Instance.inventory.HoldTrigger(_crossHair);
+
+		if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(1))
+		{
+			Game.Instance.inventory.Switch();
+		}
+	}
+
 	private void HandleDirectMovement()
 	{
 		float h = Input.GetAxis("Horizontal");
@@ -78,5 +94,7 @@ public class InputController : MonoBehaviour {
 			lookToRight = false;
 		}
 		_currentActor.SetDisplayDirection(lookToRight);
+
+		_weaponHand.SetLookDirection(_crossHair.worldPosition);
 	}
 }

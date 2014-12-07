@@ -9,6 +9,13 @@ public class BaseCharacter : MonoBehaviour {
 	public event DeathDelegate DeathEvent;
 
 	protected Actor _actor;
+	public Actor actor
+	{
+		get
+		{
+			return _actor;
+		}
+	}
 
 	protected AnimationController _animationController;
 
@@ -36,18 +43,21 @@ public class BaseCharacter : MonoBehaviour {
 		}
 	}
 
-	public void Spawn()
+	public void Spawn(Room room)
 	{
 		if (_animationController != null)
 		{
 			_animationController = GetComponent<AnimationController>();
 			_animationController.SetMaterialColor(new Color(1f, 1f, 1f, 0));
 		}
+
+		GetComponent<ArenaItem>().currentRoom = room;
 	}
 
 	public void Despawn()
 	{
-		StartCoroutine(DespawnRoutine());
+		if (this != null) // could be destroyed in this frame but reference still hold
+			StartCoroutine(DespawnRoutine());
 	}
 
 	private IEnumerator DespawnRoutine()

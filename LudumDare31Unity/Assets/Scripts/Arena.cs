@@ -63,7 +63,8 @@ public class Arena : MonoBehaviour {
 		// spawn player
 		Vector3 spawnPos = SpawnPosFromRoom(startRoom);
 		PlayerCharacter character = GameObjectFactory.Instantiate<PlayerCharacter>(heroPrefab, position:spawnPos);
-		character.Spawn();
+		character.transform.parent = transform;
+		character.Spawn(startRoom);
 		_playerCharacters.Add(character);
 		AttachToPlayerCharacter(character);
 		_narrator.GreetNewHero(character);
@@ -79,7 +80,7 @@ public class Arena : MonoBehaviour {
 
 		// spawn enemies
 		Room enemyRoom = _rooms.PickRandomDistant(startRoom);
-		SpawnEnemies(enemyRoom, 3);
+		SpawnEnemies(enemyRoom, Random.Range(3, 5));
 		var pathToEnemies = _rooms.GetPath(startRoom, enemyRoom);
 		foreach (var item in pathToEnemies)
 		{
@@ -104,11 +105,16 @@ public class Arena : MonoBehaviour {
 	public void SpawnEnemies()
 	{
 		var room = _rooms.PickRandom();
-		SpawnEnemies(room, 3);
+
+		int enemyCount = Random.Range(3, 5);
+
+		SpawnEnemies(room, enemyCount);
 	}
 
 	public void SpawnEnemies(Room spawnRoom, int enemyCount)
 	{
+		EnemyGroup group = new EnemyGroup();
+
 		deathCount = 0;
 
 		if (!spawnRoom.isActive)
@@ -118,11 +124,17 @@ public class Arena : MonoBehaviour {
 		{
 			Vector3 spawnPos = SpawnPosFromRoom(spawnRoom);
 			EnemyCharacter enemy = GameObjectFactory.Instantiate<EnemyCharacter>(enemyPrefab, position:spawnPos);
-			enemy.Spawn();
+			enemy.transform.parent = transform;
+			enemy.Spawn(spawnRoom);
 			enemy.DeathEvent += EnemyDied;
 			_enemies.Add(enemy);
+			group.Add(enemy);
 		}
 	}
+
+	// ================================================================================
+	//  private methods
+	// --------------------------------------------------------------------------------
 
 	void EnemyDied(BaseCharacter character)
 	{
@@ -133,10 +145,6 @@ public class Arena : MonoBehaviour {
 			RoundWon();
 		}
 	}
-
-	// ================================================================================
-	//  private methods
-	// --------------------------------------------------------------------------------
 
 	private void RoundWon()
 	{
@@ -178,6 +186,7 @@ public class Arena : MonoBehaviour {
 		currentPlayerCharacter = character;
 
 		Game.Instance.inputController.SetInput(character);
+		Game.Instance.inventory.AttachToCharacter(character);
 		_playerDisplay.AttachToPlayer(character);
 
 		currentPlayerCharacter.DeathEvent += PlayerDeathEvent;
@@ -193,6 +202,7 @@ public class Arena : MonoBehaviour {
 		currentPlayerCharacter.DeathEvent -= PlayerDeathEvent;
 
 		Game.Instance.inputController.DisableInput();
+		Game.Instance.inventory.DetachFromCharacter();
 		_playerDisplay.DetachFromPlayer();
 
 		if (currentPlayerCharacter != null)
@@ -205,7 +215,7 @@ public class Arena : MonoBehaviour {
 	private Vector3 SpawnPosFromRoom(Room room)
 	{
 		Vector3 spawnPos = room.transform.position;
-		Vector2 randomOffset = Random.insideUnitCircle * 0.2f;
+		Vector2 randomOffset = Random.insideUnitCircle * 0.35f;
 		return new Vector3(spawnPos.x + randomOffset.x, spawnPos.y + randomOffset.y, 0f);
 	}
 }

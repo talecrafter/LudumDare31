@@ -46,13 +46,22 @@ public class Room : MonoBehaviour {
 		}
 	}
 
+	public void OnTriggerEnter2D(Collider2D coll)
+	{
+		ArenaItem arenaItem = coll.GetComponent<ArenaItem>();
+		if (arenaItem != null)
+		{
+			arenaItem.currentRoom = this;
+		}
+	}
+
 	// ================================================================================
 	//  public methods
 	// --------------------------------------------------------------------------------
 
 	public void Show()
 	{
-		_collider2D.enabled = false;
+		_collider2D.isTrigger = true;
 		BaseGameController.Instance.levelGrid.UpdateField(_bounds);
 
 		_image.enabled = true;
@@ -62,7 +71,7 @@ public class Room : MonoBehaviour {
 
 	public void Hide()
 	{
-		_collider2D.enabled = true;
+		_collider2D.isTrigger = false;
 		BaseGameController.Instance.levelGrid.UpdateField(_bounds);
 
 		if (_animator != null)

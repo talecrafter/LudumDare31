@@ -26,6 +26,9 @@ namespace CraftingLegends.Framework
 		public delegate void DeathExecutionDelegate();
 		public DeathExecutionDelegate deathExecutionHandler;
 
+		public delegate void WasDamagedDelegate();
+		public event WasDamagedDelegate wasDamaged;
+
 		// ================================================================================
 		//  state and events
 		// --------------------------------------------------------------------------------
@@ -86,6 +89,8 @@ namespace CraftingLegends.Framework
 
 		public Vector2 lookDirection = Vector2.zero;
 
+		public Transform actionPivot;
+
 		// ================================================================================
 		//  getters and setters
 		// --------------------------------------------------------------------------------
@@ -133,6 +138,8 @@ namespace CraftingLegends.Framework
 		public GameObject displayObject;
 		public bool directionRight = true;
 		public bool canFlip = true;
+
+		public AudioClip deathSound;
 
 		[HideInInspector]
 		public bool isMoving = false;
@@ -331,6 +338,9 @@ namespace CraftingLegends.Framework
 			{
 				ShowDamageDisplay(0.10f, new Color(1.0f, 0.4f, 0.4f, 1.0f)); // red color
 			}
+
+			if (wasDamaged != null)
+				wasDamaged();
 		}
 
 		// increase health, can be called from outside
@@ -592,6 +602,9 @@ namespace CraftingLegends.Framework
 			state = ActorState.TakingAction;
 
 			// now wait for animation to trigger Execution
+
+			if (weapon.attackSound != null)
+				Game.Instance.audioManager.Play(weapon.attackSound);
 		}
 
 		private Vector2 EstimateFuturePosition(float time)
@@ -615,6 +628,9 @@ namespace CraftingLegends.Framework
 			state = ActorState.Dead;
 
 			deathExecutionHandler();
+
+			if (deathSound != null)
+				Game.Instance.audioManager.Play(deathSound);
 		}
 
 		private void DestroyAtDeath()

@@ -770,9 +770,9 @@ namespace CraftingLegends.Framework
 
 		#endregion
 
-		internal void HealFully()
+		internal void RefreshHealth()
 		{
-			ApplyHealing(maxHealth - health);
+			ApplyHealing((maxHealth - health) * 0.33f);
 		}
 	}
 }

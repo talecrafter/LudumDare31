@@ -34,8 +34,6 @@ public class EnemyCharacter : BaseCharacter {
 
 	public void SetRank(int rank)
 	{
-		Debug.Log(rank);
-
 		Actor actor = GetComponent<Actor>();
 
 		if (rank == 1)

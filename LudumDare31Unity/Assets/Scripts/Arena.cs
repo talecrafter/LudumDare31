@@ -235,13 +235,14 @@ public class Arena : MonoBehaviour {
 		yield return new WaitForSeconds(0.5f);
 
 		_narrator.RoundWon();
+		roundCount++;
 
 		yield return new WaitForSeconds(1f);
 
 		_rooms.HideButThis(playerRoom);
 		_cameraShake.Shake(1f);
 
-		currentPlayerCharacter.actor.HealFully();
+		currentPlayerCharacter.actor.RefreshHealth();
 
 		yield return new WaitForSeconds(1f);
 

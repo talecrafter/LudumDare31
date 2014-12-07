@@ -18,6 +18,7 @@ public class PlayerInventory : MonoBehaviour {
 
 	private Actor _currentActor;
 	private WeaponHand _weaponHand;
+	private CameraShake _cameraShake;
 
 	private Timer _coolDown;
 
@@ -40,6 +41,11 @@ public class PlayerInventory : MonoBehaviour {
 	// ================================================================================
 	//  unity 
 	// --------------------------------------------------------------------------------
+
+	void Awake()
+	{
+		_cameraShake = FindObjectOfType<CameraShake>();
+	}
 
 	void Update()
 	{
@@ -130,9 +136,11 @@ public class PlayerInventory : MonoBehaviour {
 
 			Vector2 direction = actualTarget - _currentActor.actionPivot.position.Vector2();
 
-			// recoil for one of the bullets
-			if (i == 0)
+			// effects on the player and the camera
+			if (i == 0){
 				_currentActor.GetComponent<Rigidbody2D>().AddForce(-direction.normalized * 55f);
+				_cameraShake.Shake(0.2f);
+			}
 
 			var bulletObject = Game.Instance.prefabPool.Pop(weapon.shellPrefab, _currentActor.actionPivot.position);
 			Bullet bullet = bulletObject as Bullet;

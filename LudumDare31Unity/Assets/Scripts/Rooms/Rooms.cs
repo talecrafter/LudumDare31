@@ -97,4 +97,19 @@ public class Rooms : MonoBehaviour {
 
 		return validRooms.PickRandom();
 	}
+
+	public void HideButThis(Room centerRoom)
+	{
+		foreach (var room in _rooms)
+		{
+			if (room == centerRoom || centerRoom.neighbours.Contains(room))
+			{
+				room.Show();
+			}
+			else
+			{
+				room.Hide();
+			}
+		}
+	}
 }

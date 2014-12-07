@@ -39,6 +39,11 @@ TextureImporter:
     21300068: monster_leg_front
     21300070: monster_leg_back
     21300072: Narrator
+    21300074: monster_head1
+    21300076: monster_head2
+    21300078: monster_head3
+    21300080: monster_arm1
+    21300082: monster_arm2
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -449,6 +454,56 @@ TextureImporter:
         height: 152
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monster_head1
+      rect:
+        serializedVersion: 2
+        x: 938
+        y: 1992
+        width: 50
+        height: 51
+      alignment: 9
+      pivot: {x: .565378428, y: .307720095}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monster_head2
+      rect:
+        serializedVersion: 2
+        x: 1001
+        y: 1992
+        width: 50
+        height: 54
+      alignment: 9
+      pivot: {x: .558840334, y: .294189453}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monster_head3
+      rect:
+        serializedVersion: 2
+        x: 1077
+        y: 1992
+        width: 43
+        height: 50
+      alignment: 9
+      pivot: {x: .484797984, y: .316948235}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monster_arm1
+      rect:
+        serializedVersion: 2
+        x: 932
+        y: 1915
+        width: 35
+        height: 54
+      alignment: 9
+      pivot: {x: .705470502, y: .772399902}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: monster_arm2
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 1921
+        width: 33
+        height: 55
+      alignment: 9
+      pivot: {x: .717923224, y: .785276115}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

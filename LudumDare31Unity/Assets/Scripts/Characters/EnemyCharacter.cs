@@ -32,6 +32,34 @@ public class EnemyCharacter : BaseCharacter {
 		_group = group;
 	}
 
+	public void SetRank(int rank)
+	{
+		Debug.Log(rank);
+
+		Actor actor = GetComponent<Actor>();
+
+		if (rank == 1)
+		{
+
+		}
+		else if (rank == 2)
+		{
+			actor.maxHealth *= 1.5f;
+			actor.movementSpeed *= 1.2f;
+			actor.transform.localScale *= 1.25f;
+			actor.weapon.amount *= 1.5f;
+		}
+		else
+		{
+			actor.maxHealth *= 3f;
+			actor.movementSpeed *= 1.4f;
+			actor.transform.localScale *= 1.5f;
+			actor.weapon.amount *= 2;
+		}
+
+		actor.health = actor.maxHealth;
+	}
+
 	void SensorEvent(SensorEvent type, IActor actor)
 	{
 		if (type == CraftingLegends.Framework.SensorEvent.ActorDetected)

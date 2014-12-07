@@ -530,14 +530,14 @@ namespace CraftingLegends.Framework
 			if (target.isReached)
 			{
 				// attack if possible
-				if (target.type == Target.TargetType.Actor)
+				if (target.type == Target.TargetType.Actor && TargetInReach())
 				{
 					Attack(target.otherActor);
 					return;
 				}
 
-				HaltMovement();
-				return;
+				//HaltMovement();
+				//return;
 			}
 
 			// get target direction
@@ -548,6 +548,13 @@ namespace CraftingLegends.Framework
 
 			// update look direction
 			SetLookDirectionToTarget(targetLocation);
+		}
+
+		// Hack; should not be necessary to double check this
+		private bool TargetInReach()
+		{
+			Vector2 direction = position2D - target.otherActor.position2D;
+			return direction.magnitude <= weapon.range;
 		}
 
 		private void Move(Vector2 moveDirection)
@@ -762,5 +769,10 @@ namespace CraftingLegends.Framework
 		}
 
 		#endregion
+
+		internal void HealFully()
+		{
+			ApplyHealing(maxHealth - health);
+		}
 	}
 }

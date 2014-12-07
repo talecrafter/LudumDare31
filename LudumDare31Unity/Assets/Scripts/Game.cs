@@ -34,4 +34,13 @@ public class Game : BaseGameController {
 		arena = FindObjectOfType<Arena>();
 	}
 
+	protected override void Update()
+	{
+		base.Update();
+
+		if (!Application.isWebPlayer && Input.GetKeyDown(KeyCode.Escape))
+		{
+			Application.Quit();
+		}
+	}
 }

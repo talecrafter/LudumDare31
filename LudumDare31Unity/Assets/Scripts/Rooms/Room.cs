@@ -39,7 +39,10 @@ public class Room : MonoBehaviour {
 		// draw all connections
 		foreach (var item in neighbours)
 		{
-			Gizmos.DrawLine(transform.position, item.transform.position);
+			Vector3 direction = item.transform.position - transform.position;
+			direction *= 0.5f;
+
+			Gizmos.DrawLine(transform.position, transform.position + direction);
 		}
 	}
 
@@ -72,8 +75,8 @@ public class Room : MonoBehaviour {
 
 		Collider2D coll = GetComponent<Collider2D>();
 
-		float rangeX = 1.7f;
-		float rangeY = 0.8f;
+		float rangeX = 1.8f;
+		float rangeY = 0.9f;
 		Vector2 fromPos = new Vector2(transform.position.x - rangeX, transform.position.y - rangeY);
 		Vector2 toPos = new Vector2(transform.position.x + rangeX, transform.position.y + rangeY);
 		var hits = Physics2D.OverlapAreaAll(fromPos, toPos);
@@ -86,7 +89,6 @@ public class Room : MonoBehaviour {
 			if (otherRoom != null && otherRoom != this)
 			{
 				neighbours.Add(otherRoom);
-				Debug.Log(otherRoom);
 			}
 		}
 	}

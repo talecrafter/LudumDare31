@@ -11,9 +11,16 @@ public class PlayerDisplay : MonoBehaviour {
 
 	private Actor _actor;
 
+	private Animator _animator;
+
 	// ================================================================================
 	//  unity methods
 	// --------------------------------------------------------------------------------
+
+	void Awake()
+	{
+		_animator = GetComponent<Animator>();
+	}
 
 	void Update()
 	{
@@ -32,14 +39,15 @@ public class PlayerDisplay : MonoBehaviour {
 		nameDisplay.text = character.characterName;
 		_actor = character.GetComponent<Actor>();
 
-		gameObject.SetActive(true);
+		_animator.SetBool("show", true);
 	}
 
 	public void DetachFromPlayer()
 	{
 		_actor = null;
+		healthImage.fillAmount = 0;
 
-		gameObject.SetActive(false);
+		_animator.SetBool("show", false);
 	}
 
 	// ================================================================================

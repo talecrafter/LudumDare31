@@ -10,6 +10,10 @@ TextureImporter:
     21300010: legfront_man0
     21300012: rifle_laser
     21300014: Shadow
+    21300016: head_man1
+    21300018: torso_man1
+    21300020: legbehind_man1
+    21300022: legfront_man1
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -130,6 +134,46 @@ TextureImporter:
         height: 109
       alignment: 9
       pivot: {x: .438596189, y: .428118497}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: head_man1
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 1973
+        width: 45
+        height: 63
+      alignment: 9
+      pivot: {x: .682118714, y: .214000002}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: torso_man1
+      rect:
+        serializedVersion: 2
+        x: 445
+        y: 1907
+        width: 76
+        height: 58
+      alignment: 9
+      pivot: {x: .611754596, y: .231301233}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: legbehind_man1
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 1855
+        width: 22
+        height: 35
+      alignment: 9
+      pivot: {x: .663024902, y: .801007926}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: legfront_man1
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 1849
+        width: 22
+        height: 46
+      alignment: 9
+      pivot: {x: .445186257, y: .82507056}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

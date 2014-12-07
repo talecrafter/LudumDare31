@@ -7,22 +7,29 @@ using CraftingLegends.Framework;
 public class Arena : MonoBehaviour {
 
 	public PlayerCharacter heroPrefab;
-	public Actor enemyPrefab;
+	public EnemyCharacter enemyPrefab;
 
-	private List<Room> _rooms;
+	private Rooms _rooms;
 
 	public PlayerCharacter currentPlayerCharacter = null;
 
 	private PlayerDisplay _playerDisplay;
+
+	private Narrator _narrator;
+
+	private List<EnemyCharacter> _enemies = new List<EnemyCharacter>();
+	private List<PlayerCharacter> _playerCharacters = new List<PlayerCharacter>();
+
+	private int deathCount = 0;
 
 	// ================================================================================
 	//  unity methods
 	// --------------------------------------------------------------------------------
 
     void Awake() {
+		_rooms = FindObjectOfType<Rooms>();
+		_narrator = FindObjectOfType<Narrator>();
 		_playerDisplay = FindObjectOfType<PlayerDisplay>();
-
-		_rooms = new List<Room>(FindObjectsOfType<Room>());
     }
 
 	void Start()
@@ -38,57 +45,133 @@ public class Arena : MonoBehaviour {
 	{
 		StopAllCoroutines();
 
+		DespawnPlayers();
 		DetachFromPlayerCharacter();
+
+		DespawnEnemies();
 
 		StartCoroutine(SpawnPlayer());
 	}
 
 	public IEnumerator SpawnPlayer()
 	{
-		Room startRoom = ShowSingleRoom();
+		// select start room
+		Room startRoom = _rooms.ShowSingleRoom();
+
 		yield return new WaitForSeconds(0.3f);
 
+		// spawn player
 		Vector3 spawnPos = SpawnPosFromRoom(startRoom);
 		PlayerCharacter character = GameObjectFactory.Instantiate<PlayerCharacter>(heroPrefab, position:spawnPos);
-
+		character.Spawn();
+		_playerCharacters.Add(character);
 		AttachToPlayerCharacter(character);
+		_narrator.GreetNewHero(character);
 
+		// spawn neighbour rooms
 		List<Room> roomsToSpawn = startRoom.neighbours.Clone();
-
 		while (roomsToSpawn.Count > 0)
 		{
 			yield return new WaitForSeconds(0.3f);
 			Room newRoom = roomsToSpawn.PopRandom();
 			newRoom.Show();
 		}
-	}
 
-	public void HideAllRooms()
-	{
-		foreach (var room in _rooms)
+		// spawn enemies
+		Room enemyRoom = _rooms.PickRandomDistant(startRoom);
+		SpawnEnemies(enemyRoom, 3);
+		var pathToEnemies = _rooms.GetPath(startRoom, enemyRoom);
+		foreach (var item in pathToEnemies)
 		{
-			room.Hide();
+			item.Show();
 		}
 	}
 
-	public Room ShowSingleRoom()
+	public IEnumerator NextGame()
 	{
-		Room spawnRoom = _rooms.PickRandom();
+		DetachFromPlayerCharacter();
 
-		foreach (var room in _rooms)
+		yield return new WaitForSeconds(1f);
+
+		DespawnPlayers();
+		DespawnEnemies();
+
+		yield return new WaitForSeconds(1f);
+
+		StartCoroutine(SpawnPlayer());
+	}
+
+	public void SpawnEnemies()
+	{
+		var room = _rooms.PickRandom();
+		SpawnEnemies(room, 3);
+	}
+
+	public void SpawnEnemies(Room spawnRoom, int enemyCount)
+	{
+		deathCount = 0;
+
+		if (!spawnRoom.isActive)
+			spawnRoom.Show();
+
+		for (int i = 0; i < enemyCount; i++)
 		{
-			if (room == spawnRoom)
-				room.Show();
-			else
-				room.Hide();
+			Vector3 spawnPos = SpawnPosFromRoom(spawnRoom);
+			EnemyCharacter enemy = GameObjectFactory.Instantiate<EnemyCharacter>(enemyPrefab, position:spawnPos);
+			enemy.Spawn();
+			enemy.DeathEvent += EnemyDied;
+			_enemies.Add(enemy);
 		}
+	}
 
-		return spawnRoom;
+	void EnemyDied(BaseCharacter character)
+	{
+		deathCount++;
+
+		if (deathCount >= _enemies.Count)
+		{
+			RoundWon();
+		}
 	}
 
 	// ================================================================================
 	//  private methods
 	// --------------------------------------------------------------------------------
+
+	private void RoundWon()
+	{
+		StartCoroutine(EndRound());
+	}
+
+	private IEnumerator EndRound()
+	{
+		DespawnEnemies();
+
+		yield return new WaitForSeconds(0.5f);
+
+		SpawnEnemies();
+	}
+
+	private void DespawnPlayers()
+	{
+		foreach (var player in _playerCharacters)
+		{
+			player.Despawn();
+		}
+
+		_playerCharacters.Clear();
+	}
+
+	private void DespawnEnemies()
+	{
+		foreach (var enemy in _enemies)
+		{
+			enemy.DeathEvent -= EnemyDied;
+			enemy.Despawn();
+		}
+
+		_enemies.Clear();
+	}
 
 	private void AttachToPlayerCharacter(PlayerCharacter character)
 	{
@@ -96,10 +179,19 @@ public class Arena : MonoBehaviour {
 
 		Game.Instance.inputController.SetInput(character);
 		_playerDisplay.AttachToPlayer(character);
+
+		currentPlayerCharacter.DeathEvent += PlayerDeathEvent;
+	}
+
+	void PlayerDeathEvent(BaseCharacter character)
+	{
+		StartCoroutine(NextGame());
 	}
 
 	private void DetachFromPlayerCharacter()
 	{
+		currentPlayerCharacter.DeathEvent -= PlayerDeathEvent;
+
 		Game.Instance.inputController.DisableInput();
 		_playerDisplay.DetachFromPlayer();
 

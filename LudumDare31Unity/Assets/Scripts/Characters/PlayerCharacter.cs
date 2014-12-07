@@ -4,16 +4,15 @@ using System.Collections.Generic;
 using CraftingLegends.Core;
 using CraftingLegends.Framework;
 
-public class PlayerCharacter : MonoBehaviour {
-
+public class PlayerCharacter : BaseCharacter
+{
 	public string characterName;
 
 	private Gender _gender;
 
-	private Actor _actor;
-
-    void Awake() {
-		_actor = GetComponent<Actor>();
+	protected override void Awake()
+	{
+		base.Awake();
 
 		if (ExtRandom.SplitChance())
 			_gender = Gender.Male;
@@ -21,7 +20,7 @@ public class PlayerCharacter : MonoBehaviour {
 			_gender = Gender.Female;
 
 		characterName = RandomNames.GetUniqueName(_gender);
-    }
+	}
 
 	public void Die()
 	{

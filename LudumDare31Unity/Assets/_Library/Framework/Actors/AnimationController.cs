@@ -34,6 +34,7 @@ namespace CraftingLegends.Framework
 
 		private AvatarAnimation _currentAnimation = AvatarAnimation.idle;
 
+		private FadingTimer _fadeInTimer = null;
 		private FadingTimer _fadeOutTimer = null;
 
 		private List<Material> _materials = new List<Material>();
@@ -79,7 +80,18 @@ namespace CraftingLegends.Framework
 			// show fadeout when game is running or has ended
 			if (BaseGameController.Instance.state == GameState.Running || BaseGameController.Instance.state == GameState.Ended)
 			{
-				if (_fadeOutTimer != null)
+				if (_fadeInTimer != null)
+				{
+					_fadeInTimer.Update();
+					ApplyFadeIn();
+
+					if (_fadeInTimer.hasEnded)
+					{
+						SetMaterialColor(new Color(1.0f, 1.0f, 1.0f, 1f));
+						_fadeInTimer = null;
+					}
+				}
+				else if (_fadeOutTimer != null)
 				{
 					_fadeOutTimer.Update();
 					ApplyFadeOut();
@@ -105,12 +117,23 @@ namespace CraftingLegends.Framework
 			}
 		}
 
+		public void FadeIn()
+		{
+			SetMaterialColor(new Color(1.0f, 1.0f, 1.0f, 0f));
+			_fadeInTimer = new FadingTimer(1f, 1f);
+		}
+
 		public void FadeOut()
 		{
 			if (_fadeOutTimer == null)
 			{
 				_fadeOutTimer = new FadingTimer(0, Actor.TIME_UNTIL_DESTRUCTION, 2.0f);
 			}
+		}
+
+		public void FadeOutFast(float time)
+		{
+			_fadeOutTimer = new FadingTimer(0f, time, time);
 		}
 
 		public void Reset()
@@ -211,6 +234,12 @@ namespace CraftingLegends.Framework
 
 				_currentAnimation = anim;
 			}
+		}
+
+		private void ApplyFadeIn()
+		{
+			Color color = new Color(1.0f, 1.0f, 1.0f, _fadeInTimer.progress);
+			SetMaterialColor(color);
 		}
 
 		private void ApplyFadeOut()

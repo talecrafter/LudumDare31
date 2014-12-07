@@ -268,6 +268,13 @@ namespace CraftingLegends.Framework
 
 		#region state manipulation
 
+		public void MakeInActive()
+		{
+			target.DisableTarget();
+
+			state = ActorState.Disabled;
+		}
+
 		public void Disable()
 		{
 			target.DisableTarget();
@@ -322,7 +329,7 @@ namespace CraftingLegends.Framework
 			}
 			else
 			{
-				ShowDamageDisplay(0.15f, new Color(1.0f, 0.4f, 0.4f, 1.0f)); // red color
+				ShowDamageDisplay(0.10f, new Color(1.0f, 0.4f, 0.4f, 1.0f)); // red color
 			}
 		}
 
@@ -342,7 +349,7 @@ namespace CraftingLegends.Framework
 				health = maxHealth;
 			}
 
-			ShowDamageDisplay(0.3f, new Color(0.58f, 0.91f, 0.82f)); // turquoise color
+			ShowDamageDisplay(0.2f, new Color(0.58f, 0.91f, 0.82f)); // turquoise color
 		}
 
 		#endregion
